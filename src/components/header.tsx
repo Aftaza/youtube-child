@@ -1,4 +1,4 @@
-"use server"
+"use client"
 import React from 'react';
 import {
     Bars3Icon,
@@ -10,7 +10,6 @@ import {
 import youtubeIcon from "@/../public/youtube.svg";
 import Image from 'next/image';
 import Link from 'next/link';
-import { authUserSession } from '@/libs/auth-libs';
 
 export const Header = () => {
     return (
@@ -55,8 +54,7 @@ export const Header = () => {
     )
 }
 
-export const HeaderStudio = async() => {
-    const user = await authUserSession()
+export const HeaderStudio = async({user}: {user: any}) => {
     return (
         <nav className='fixed top-0 w-full'>
             <div className='flex flex-wrap items-center justify-between mx-auto p-4'>
@@ -66,7 +64,7 @@ export const HeaderStudio = async() => {
                 </Link>
                 <div className='flex items-center space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse'>
                     <h3 className='mr-3 font-sans'>Hey {user?.name as string}</h3>
-                    <button type='button' className='flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-600' id='user-menu-button' aria-expanded='false' data-dropdown-toggle='user-dropdown' data-dropdown-placement='bottom'>
+                    <button type='button' className='flex text-sm transition-all ease-in-out duration-300 bg-gray-800 rounded-full md:me-0 focus:ring-2 focus:ring-gray-600' id='user-menu-button' aria-expanded='false' data-dropdown-toggle='user-dropdown' data-dropdown-placement='bottom'>
                         <span className='sr-only'>open user menu</span>
                         <Image src={user?.image as string} alt='user icon' width={32} height={32} className='h-8 w-8 rounded-full' />
                     </button>

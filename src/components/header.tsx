@@ -1,5 +1,5 @@
 "use client"
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Bars3Icon,
     MagnifyingGlassIcon,
@@ -10,6 +10,7 @@ import {
 import youtubeIcon from "@/../public/youtube.svg";
 import Image from 'next/image';
 import Link from 'next/link';
+import Dropdown from './dropdown';
 
 export const Header = () => {
     return (
@@ -54,7 +55,8 @@ export const Header = () => {
     )
 }
 
-export const HeaderStudio = async({user}: {user: any}) => {
+export const HeaderStudio = ({user}: {user: any}) => {
+
     return (
         <nav className='fixed top-0 w-full'>
             <div className='flex flex-wrap items-center justify-between mx-auto p-4'>
@@ -62,23 +64,7 @@ export const HeaderStudio = async({user}: {user: any}) => {
                     <Image src={youtubeIcon} alt='youtube icon' className='h-8 w-8 ' />
                     <h1 className='font-bold text-xl'>Studio</h1>
                 </Link>
-                <div className='flex items-center space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse'>
-                    <h3 className='mr-3 font-sans'>Hey {user?.name as string}</h3>
-                    <button type='button' className='flex text-sm transition-all ease-in-out duration-300 bg-gray-800 rounded-full md:me-0 focus:ring-2 focus:ring-gray-600' id='user-menu-button' aria-expanded='false' data-dropdown-toggle='user-dropdown' data-dropdown-placement='bottom'>
-                        <span className='sr-only'>open user menu</span>
-                        <Image src={user?.image as string} alt='user icon' width={32} height={32} className='h-8 w-8 rounded-full' />
-                    </button>
-                    <div className='z-50 hidden my-4 text-base list-none divide-y divide-gray-600 bg-gray-700 rounded-lg shadow'>
-                        <div className='px-4 py-3'>
-                            <span className='block text-sm text-white'>{user?.email as string}</span>
-                        </div>
-                        <ul className='py-2' aria-label='user-menu-button'>
-                            <li>
-                                <Link href="/studio/profile" className='block py-4 px-2 text-sm text-gray-200 hover:bg-gray-600 hover:text-white'>Profile</Link>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                <Dropdown user={user} />
             </div>
         </nav>
     )

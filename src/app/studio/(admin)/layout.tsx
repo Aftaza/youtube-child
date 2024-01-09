@@ -1,5 +1,6 @@
 import "@/app/assets/styles/globals.css";
 import { HeaderStudio } from "@/components/header";
+import { SidebarStudio } from "@/components/sidebar";
 import { authUserSession } from '@/libs/auth-libs';
 
 export default async function StudioLayout({
@@ -11,7 +12,8 @@ export default async function StudioLayout({
     return (
         <>
             <HeaderStudio user={user}/>
-            <div className="mt-16">
+            <SidebarStudio />
+            <div className="mt-16 ml-56">
                 {children}
             </div>
         </>

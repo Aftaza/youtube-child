@@ -58,7 +58,7 @@ export const Header = () => {
 export const HeaderStudio = ({user}: {user: any}) => {
 
     return (
-        <nav className='fixed top-0 w-full'>
+        <nav className='fixed top-0 z-50 w-full'>
             <div className='flex flex-wrap items-center justify-between mx-auto p-4'>
                 <Link href="/studio" className='flex items-center space-x-1'>
                     <Image src={youtubeIcon} alt='youtube icon' className='h-8 w-8 ' />

@@ -15,6 +15,7 @@ model Videos {
     url_yt          String
     title           String
     description     String      @db.LongText
+    views           Int
     thumbnail       String
     published       DateTime
     tag_id          Int?
@@ -33,5 +34,6 @@ model Channels {
 model Tags {
     id      Int                 @id @default(autoincrement())
     name    String
+    count   Int
     videos  Videos[]
 }

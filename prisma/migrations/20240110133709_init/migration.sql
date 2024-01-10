@@ -4,6 +4,7 @@ CREATE TABLE `Videos` (
     `url_yt` VARCHAR(191) NOT NULL,
     `title` VARCHAR(191) NOT NULL,
     `description` LONGTEXT NOT NULL,
+    `views` INTEGER NOT NULL,
     `thumbnail` VARCHAR(191) NOT NULL,
     `published` DATETIME(3) NOT NULL,
     `tag_id` INTEGER NULL,
@@ -25,6 +26,7 @@ CREATE TABLE `Channels` (
 CREATE TABLE `Tags` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
+    `count` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

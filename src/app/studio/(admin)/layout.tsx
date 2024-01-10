@@ -13,7 +13,7 @@ export default async function StudioLayout({
         <>
             <HeaderStudio user={user}/>
             <SidebarStudio />
-            <div className="mt-16 ml-56">
+            <div className="mt-16 ml-56 px-5">
                 {children}
             </div>
         </>

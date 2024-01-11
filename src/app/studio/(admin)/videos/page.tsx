@@ -1,7 +1,11 @@
 import { PencilSquareIcon, TrashIcon, PlusIcon } from '@heroicons/react/24/outline'
 import React from 'react'
+import youtubeApi from '@/libs/youtubeApi'
 
-const VideosAdmin = () => {
+const VideosAdmin = async() => {
+    const vidId = "wD1H9JLsvIU" as string
+    const response = await youtubeApi({vidId})
+    console.log(response.video)
     return (
         <div className='flex flex-col gap-3 w-full'>
             <h3 className='text-2xl font-semibold'>Video Lists</h3>

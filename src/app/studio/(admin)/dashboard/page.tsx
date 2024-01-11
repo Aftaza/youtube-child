@@ -1,7 +1,7 @@
 import { PlayPauseIcon, HashtagIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 
-const AppAdmin = () => {
+const AppAdmin = async () => {
     return (
         <div className='flex flex-col gap-3 w-full'>
             <h3 className='text-2xl font-semibold'>Dashboard</h3>

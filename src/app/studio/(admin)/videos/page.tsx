@@ -1,11 +1,12 @@
 import { PencilSquareIcon, TrashIcon, PlusIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 import youtubeApi from '@/libs/youtubeApi'
+import Link from 'next/link'
+
 
 const VideosAdmin = async() => {
     const vidId = "wD1H9JLsvIU" as string
     const response = await youtubeApi({vidId})
-    console.log(response.video)
     return (
         <div className='flex flex-col gap-3 w-full'>
             <h3 className='text-2xl font-semibold'>Video Lists</h3>
@@ -13,10 +14,10 @@ const VideosAdmin = async() => {
                 <form action="#" method="post" className='h-full'>
                     <input type="text" placeholder='Search . . .' className='p-2 rounded-lg bg-[#212121] text-white text-sm focus:outline-none focus:border focus:border-gray-500'/>
                 </form>
-                <button className='flex items-center bg-green-500 p-2 rounded-lg text-sm hover:bg-green-600'>
+                <Link href='videos/add' className='flex items-center bg-green-500 p-2 rounded-lg text-sm hover:bg-green-600'>
                     <PlusIcon className='h-5' />
                     Tambah
-                </button>
+                </Link>
             </div>
             <div className='relative overflow-x-auto shadow-md sm:rounded-lg'>
                 <table className='w-full text-sm text-gray-400'>

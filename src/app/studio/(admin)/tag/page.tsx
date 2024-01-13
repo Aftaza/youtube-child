@@ -1,7 +1,10 @@
 import React from 'react'
 import { PencilSquareIcon, TrashIcon, PlusIcon } from '@heroicons/react/24/outline'
+import axios from 'axios'
+import { Capitalize } from '@/libs/tools'
 
-const Tag = () => {
+const Tag = async () => {
+    const tags = await axios.get('http://localhost:3000/api/v1/get-tags')
     return (
         <div className='flex flex-col gap-3 w-full'>
             <h3 className='text-2xl font-semibold'>Tag Lists</h3>
@@ -33,25 +36,29 @@ const Tag = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr className='border-b border-gray-700 hover:bg-[#515151] text-white'>
-                            <th scope='row' className='py-2 font-medium'>
-                                1
-                            </th>
-                            <th className='py-2 whitespace-nowrap text-left'>
-                                Hayo lo
-                            </th>
-                            <td className='py-2 text-center'>
-                                299
-                            </td>
-                            <td className='py-2 px-0 flex items-center justify-center gap-2'>
-                                <button type='button' className='flex items-center bg-green-500 hover:bg-green-600 px-2 py-2 rounded-lg'>
-                                    <PencilSquareIcon className='h-5' />
-                                </button>
-                                <button type='button' className='flex items-center bg-red-500 hover:bg-red-600 px-2 py-2 rounded-lg'>
-                                    <TrashIcon className='h-5' />
-                                </button>
-                            </td>
-                        </tr>
+                        {tags.data.data.map( (tag: any, index: any) => {
+                            return (
+                                <tr key={index} className='border-b border-gray-700 hover:bg-[#515151] text-white'>
+                                    <th scope='row' className='py-2 font-medium'>
+                                        {index + 1}
+                                    </th>
+                                    <th className='py-2 whitespace-nowrap text-left'>
+                                        {Capitalize(tag.name)}
+                                    </th>
+                                    <td className='py-2 text-center'>
+                                        {tag.count}
+                                    </td>
+                                    <td className='py-2 px-0 flex items-center justify-center gap-2'>
+                                        <button type='button' className='flex items-center bg-green-500 hover:bg-green-600 px-2 py-2 rounded-lg'>
+                                            <PencilSquareIcon className='h-5' />
+                                        </button>
+                                        <button type='button' className='flex items-center bg-red-500 hover:bg-red-600 px-2 py-2 rounded-lg'>
+                                            <TrashIcon className='h-5' />
+                                        </button>
+                                    </td>
+                                </tr>
+                            )
+                        })}
                     </tbody>
                 </table>
             </div>

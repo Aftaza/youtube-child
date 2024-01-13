@@ -16,6 +16,7 @@ model Videos {
     title           String
     description     String      @db.LongText
     views           Int
+    likes           Int
     thumbnail       String
     published       DateTime
     tag_id          Int?
@@ -26,14 +27,14 @@ model Videos {
 
 model Channels {
     id              Int         @id @default(autoincrement())
-    name            String
+    name            String      @unique
     avatar          String
     videos Videos[]
 }
 
 model Tags {
     id      Int                 @id @default(autoincrement())
-    name    String
+    name    String              @unique
     count   Int
     videos  Videos[]
 }

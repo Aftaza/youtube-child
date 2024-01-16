@@ -47,10 +47,6 @@ const NewVideos = () => {
     const handleSubmit = async (e : FormEvent) => {
         e.preventDefault()
         
-        // axios.post("/api/v1/add-tag", { name: "musik"}, {headers: {'Content-Type': 'application/json'}})
-        // .then( (res): any => {
-        //     console.log(res.data)
-        // })
         const tagny = await axios.get('/api/v1/get-tags')
         tags.current = tagny.data
         const formData = new FormData(e.target as HTMLFormElement)

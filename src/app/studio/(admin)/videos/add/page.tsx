@@ -1,11 +1,11 @@
 "use client"
-import prisma from '@/libs/prisma'
 import { Capitalize, countViews, dateVideo } from '@/libs/tools'
 import youtubeApi from '@/libs/youtubeApi'
 import { InformationCircleIcon } from '@heroicons/react/24/outline'
 import axios from 'axios'
 import React, { ChangeEvent, FormEvent, useRef, useState } from 'react'
 import { z } from 'zod'
+import toast from "react-hot-toast"
 
 const formSchema = z.object({
     url: z
@@ -46,7 +46,7 @@ const NewVideos = () => {
 
     const handleSubmit = async (e : FormEvent) => {
         e.preventDefault()
-        
+        const loading = toast.loading("Loading...")
         const tagny = await axios.get('/api/v1/get-tags')
         tags.current = tagny.data
         const formData = new FormData(e.target as HTMLFormElement)
@@ -71,10 +71,44 @@ const NewVideos = () => {
             console.log(vidDetail)
             setVidData(vidDetail)
             setActive(!active)
+            toast.dismiss(loading)
         }catch (error){
             console.log(error)
         }
+    }
 
+    const handleConfirm = async (e: FormEvent) => {
+        e.preventDefault()
+        const loading = toast.loading("Saving...")
+        const formData = new FormData(e.target as HTMLFormElement)
+        const tagId = formData.get('tag')
+        const channel = vidData.api?.channel
+        axios.post("/api/v1/add-video", {
+            url: vidData.id,
+            title: vidData.api?.video?.title,
+            desc: vidData.api?.video?.description,
+            view: vidData.api?.video?.views,
+            like: vidData.api?.video?.likes,
+            thumbnail: vidData.api?.video?.thumbnails?.url,
+            published: vidData.api?.video?.published,
+            tag_id: tagId,
+            channel: channel,
+        },
+        {
+            headers: {'Content-Type': 'application/json'}
+        })
+        .then( (res) => {
+            if(res.data.status == 200){
+                toast.success(res.data.message, { id: loading })
+            }else{
+                toast.error(res.data.message, { id: loading })
+            }
+            console.log(res)
+        })
+        .catch( (err) => {
+            console.log(err)
+            toast.error("API Error", { id: loading })
+        })
     }
 
     return (
@@ -111,8 +145,8 @@ const NewVideos = () => {
                     <h1 className='text-xl font-semibold'>{vidData?.api?.video?.title}</h1>
                     <h2 className='text-lg'>{vidData?.api?.channel?.name}</h2>
                     <h3 className='text-sm'>{active ? countViews(vidData?.api?.video?.views) : ""} views • {active ? dateVideo(vidData?.api?.video?.published) : ""}</h3>
-                    <form action="" className='flex flex-col gap-2 mt-3 w-full'>
-                        <select name="tag" id="tag" defaultValue={'0'} className='bg-[#616161] text-white rounded-lg text-sm focus:outline-none py-1 px-2 cursor-pointer'>
+                    <form action="" onSubmit={handleConfirm} method='post' className='flex flex-col gap-2 mt-3 w-full'>
+                        <select name="tag" defaultValue={'0'} className='bg-[#616161] text-white rounded-lg text-sm focus:outline-none py-1 px-2 cursor-pointer'>
                             <option value="0" disabled>Choose Tag</option>
                             {tags.current?.data?.map( (tag: any, index: any) => {
                                 return (
@@ -121,7 +155,7 @@ const NewVideos = () => {
                             })}
                         </select>
                         <div className='flex justify-end'>
-                            <button className='bg-blue-500 py-1 px-3 rounded-lg hover:bg-blue-600 transition ease-in-out duration-300'>Confirm</button>
+                            <button type='submit' className='bg-blue-500 py-1 px-3 rounded-lg hover:bg-blue-600 transition ease-in-out duration-300'>Confirm</button>
                         </div>
                     </form>
                 </div>

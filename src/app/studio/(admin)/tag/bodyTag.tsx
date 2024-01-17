@@ -57,9 +57,6 @@ const BodyTag = ({tags}: {tags:any}) => {
     return (
         <>
             <div className='flex justify-end items-center gap-2'>
-                <form action="#" method="post" className='h-full'>
-                    <input type="text" placeholder='Search . . .' className='p-2 rounded-lg bg-[#212121] text-white text-sm focus:outline-none focus:border focus:border-gray-500'/>
-                </form>
                 <button onClick={() => setModalActive(true)} className='flex items-center bg-green-500 p-2 rounded-lg text-sm hover:bg-green-600'>
                     <PlusIcon className='h-5' />
                     Tambah

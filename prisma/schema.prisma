@@ -12,7 +12,7 @@ datasource db {
 
 model Videos {
     id              Int         @id @default(autoincrement())
-    url_yt          String
+    url_yt          String      @unique
     title           String
     description     String      @db.LongText
     views           Int

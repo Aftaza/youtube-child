@@ -1,8 +1,6 @@
 import React from 'react'
-import { toast } from 'react-hot-toast';
 import BodyTag from './bodyTag';
 import axios from 'axios'
-import App from 'next/app';
 
 
 const Tag = async () => {

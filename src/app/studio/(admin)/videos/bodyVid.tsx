@@ -1,11 +1,12 @@
 "use client"
-import { PencilSquareIcon, TrashIcon, PlusIcon } from '@heroicons/react/24/outline'
+import { TrashIcon, PlusIcon, ListBulletIcon } from '@heroicons/react/24/outline'
 import axios from 'axios'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 
 const BodyVid = ({videos}: {videos: any}) => {
-
+    const router = useRouter()
     const handleDelete = async (id: any) => {
         const loading = toast.loading("Loading...")
         const getVidDetail = await axios.get("/api/v1/get-videos?id=" + id)
@@ -94,8 +95,8 @@ const BodyVid = ({videos}: {videos: any}) => {
                                         {video.views}
                                     </td>
                                     <td className='py-2 px-0 flex items-center justify-center gap-2'>
-                                        <button type='button' className='flex items-center bg-green-500 hover:bg-green-600 px-2 py-2 rounded-lg'>
-                                            <PencilSquareIcon className='h-5' />
+                                        <button onClick={() => router.push(`/studio/videos/detail/${video.id}`)} type='button' className='flex items-center bg-green-500 hover:bg-green-600 px-2 py-2 rounded-lg'>
+                                            <ListBulletIcon className='h-5' />
                                         </button>
                                         <button onClick={() => clickDelete(video.id)} type='button' className='flex items-center bg-red-500 hover:bg-red-600 px-2 py-2 rounded-lg'>
                                             <TrashIcon className='h-5' />

@@ -25,3 +25,9 @@ export const countViews = (view: string): string => {
 export function Capitalize(str: string){
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+export function getYtId(url: string): string{
+    const urlYt = new URL(url)
+    const params = new URLSearchParams(urlYt.search)
+    return params.get('v') as string
+}

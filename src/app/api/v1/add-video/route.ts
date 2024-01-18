@@ -41,7 +41,8 @@ export async function POST(request : any){
         const createChannel = await prisma.channels.create({
             data: {
                 name: channel.name,
-                avatar: channel.avatar.url
+                avatar: channel.avatar.url,
+                count: 1
             }
         })
         if (!createChannel){
@@ -50,6 +51,17 @@ export async function POST(request : any){
         channelId = createChannel.id
     }else{
         channelId = cekChanel.id
+        const updateChannel = await prisma.channels.update({
+            where: {
+                id: channelId,
+            },
+            data: {
+                count: cekChanel.count + 1,
+            }
+        })
+        if (!updateChannel){
+            return Response.json({status: 500, message: "Error update channel"})
+        }
     }
 
     if (!cekTag){

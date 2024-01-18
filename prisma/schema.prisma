@@ -29,6 +29,7 @@ model Channels {
     id              Int         @id @default(autoincrement())
     name            String      @unique
     avatar          String
+    count           Int
     videos Videos[]
 }
 

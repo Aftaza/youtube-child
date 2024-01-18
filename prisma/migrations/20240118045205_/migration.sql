@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE `Channels` MODIFY `count` INTEGER NOT NULL DEFAULT 0;
+
+-- AlterTable
+ALTER TABLE `Tags` MODIFY `count` INTEGER NOT NULL DEFAULT 0;

@@ -1,7 +1,49 @@
+"use client"
 import { PencilSquareIcon, TrashIcon, PlusIcon } from '@heroicons/react/24/outline'
+import axios from 'axios'
 import Link from 'next/link'
+import toast from 'react-hot-toast'
 
 const BodyVid = ({videos}: {videos: any}) => {
+
+    const handleDelete = async (id: any) => {
+        const loading = toast.loading("Loading...")
+        const getVidDetail = await axios.get("/api/v1/get-videos?id=" + id)
+        if (getVidDetail.data.status != 200){
+            toast.error("Error get videos Details", {id: loading})
+            return
+        }
+        const vidDetail = getVidDetail.data.data
+        axios.delete("/api/v1/del-video", {headers: {'Content-Type': 'application/json'}, data: {id: id, channel: vidDetail.channel, tag: vidDetail.tag}})
+        .then( (res: any) => {
+            console.log(res)
+            if(res.data.status == 200){
+                toast.success(res.data.message, {id: loading})
+            }else{
+                toast.error(res.data.message, {id: loading})
+            }
+        })
+        .catch( (err: any) => {
+            console.log(err)
+            toast.error("API Error", {id: loading})
+        })
+    }
+
+    const clickDelete = (id: any) => {
+        toast((t) => (
+            <span>
+                Confirm <b>delete</b>
+
+                <button onClick={() => handleDelete(id)} className='mx-1 py-1 px-2 bg-green-500 hover:bg-green-600 rounded-lg text-sm text-white'>
+                    yes
+                </button>
+
+                <button onClick={() => toast.dismiss(t.id)} className='mx-1 py-1 px-2 bg-red-500 hover:bg-red-600 rounded-lg text-sm text-white'>
+                    no
+                </button>
+            </span>
+        ), {duration: 5000})
+    }
 
     return (
         <>
@@ -55,7 +97,7 @@ const BodyVid = ({videos}: {videos: any}) => {
                                         <button type='button' className='flex items-center bg-green-500 hover:bg-green-600 px-2 py-2 rounded-lg'>
                                             <PencilSquareIcon className='h-5' />
                                         </button>
-                                        <button type='button' className='flex items-center bg-red-500 hover:bg-red-600 px-2 py-2 rounded-lg'>
+                                        <button onClick={() => clickDelete(video.id)} type='button' className='flex items-center bg-red-500 hover:bg-red-600 px-2 py-2 rounded-lg'>
                                             <TrashIcon className='h-5' />
                                         </button>
                                     </td>

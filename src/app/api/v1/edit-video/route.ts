@@ -20,7 +20,7 @@ export async function POST(request: Request){
             id: parseInt(oldTag)
         },
         data: {
-            count: selOldTag.count - 1
+            count: (selOldTag?.count ?? 1) - 1
         }
     })
 
@@ -29,7 +29,7 @@ export async function POST(request: Request){
             id: parseInt(tagId)
         },
         data: {
-            count: selNewTag.count + 1
+            count: (selNewTag?.count ?? 1) + 1
         }
     })
 

@@ -30,14 +30,14 @@ const getVideo = async (url: string) => {
 }
 
 const NewVideos = () => {
-    const tags = useRef({})
+    const tags = useRef<null | {[key: string]: any}>(null);
     const [formErr, setFormErr] = useState<z.ZodFormattedError<
             FormSchema,
             string
         > | null>(null)
     
     const [active, setActive] = useState(false)
-    const [vidData, setVidData] = useState({})
+    const [vidData, setVidData] = useState<null | {[key: string]: any}>(null)
 
     const handleChange = (e: ChangeEvent) => {
         e.preventDefault()
@@ -82,15 +82,15 @@ const NewVideos = () => {
         const loading = toast.loading("Saving...")
         const formData = new FormData(e.target as HTMLFormElement)
         const tagId = formData.get('tag')
-        const channel = vidData.api?.channel
+        const channel = vidData?.api?.channel
         axios.post("/api/v1/add-video", {
-            url: vidData.id,
-            title: vidData.api?.video?.title,
-            desc: vidData.api?.video?.description,
-            view: vidData.api?.video?.views,
-            like: vidData.api?.video?.likes,
-            thumbnail: vidData.api?.video?.thumbnails?.url,
-            published: vidData.api?.video?.published,
+            url: vidData?.id,
+            title: vidData?.api?.video?.title,
+            desc: vidData?.api?.video?.description,
+            view: vidData?.api?.video?.views,
+            like: vidData?.api?.video?.likes,
+            thumbnail: vidData?.api?.video?.thumbnails?.url,
+            published: vidData?.api?.video?.published,
             tag_id: tagId,
             channel: channel,
         },

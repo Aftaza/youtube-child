@@ -24,7 +24,7 @@ export async function DELETE(request: Request){
             return Response.json({status: 500, message: "Error update channel and tag"})
         }
     }
-
+    
     const cekChannel = await prisma.channels.findUnique({
         where:{
             id: parseInt(channel.id)
@@ -37,7 +37,7 @@ export async function DELETE(request: Request){
         }
     })
 
-    if (cekChannel.count < 1){
+    if ((cekChannel?.count ?? 0) < 1){
         const deleteChannel = await prisma.channels.deleteMany({
             where: {
                 count: 0

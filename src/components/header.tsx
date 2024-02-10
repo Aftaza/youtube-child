@@ -24,8 +24,8 @@ export const Header = () => {
                     </Link>
                 </div>
 
-                <div className='hidden sm:flex items-center'>
-                    <form action="" className='flex w-[600px] items-center bg-[#313131] border border-gray-700 rounded-xl'>
+                <div className='hidden md:flex items-center'>
+                    <form action="" className='flex w-[400px] lg:w-[600px] items-center bg-[#313131] border border-gray-700 rounded-xl'>
                         <input 
                             type="text" 
                             name="search" 

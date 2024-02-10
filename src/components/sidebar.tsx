@@ -15,7 +15,7 @@ import React from 'react'
 
 export const Sidebar = () => {
     return (
-        <aside className='fixed left-0 top-11 bg-black p-1 w-[6%]'>
+        <aside className='hidden sm:block fixed left-0 top-11 bg-black p-1 w-[6%]'>
             <div className='h-fit w-full flex flex-col items-center text-white pt-2'>
                 <div className='flex flex-col justify-center cursor-pointer items-center hover:bg-[#313131] w-[90%] rounded-xl h-20'>
                     <HomeIcon className='h-6' />
